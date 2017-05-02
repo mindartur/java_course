@@ -29,13 +29,17 @@ public class Main {
         for (int i=0; i<1000000; i++){
              b[i] = new Object();
         }
-        System.gc();
-        Thread.sleep(10);
+
         after = checkMemoryConsumption();
-        System.out.println("Size per one Object elem: " + (after-before) / 1000000.0);
+        System.out.println("Size per one Object elem: " + (after-before-4*1000000.0) / 1000000.0);
+
+        System.out.println(array);
+        System.out.println(a);
     }
 
-    protected static long checkMemoryConsumption(){
+    public static long checkMemoryConsumption() throws InterruptedException {
+        System.gc();
+        Thread.sleep(10);
         long a1, a2;
         a1 = Runtime.getRuntime().totalMemory();
         a2 = Runtime.getRuntime().freeMemory();
