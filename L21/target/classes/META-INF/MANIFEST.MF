@@ -1,3 +1,0 @@
-Manifest-Version: 1.0
-Created-By: artur
-Main-Class: space.harbour.l21.Main
