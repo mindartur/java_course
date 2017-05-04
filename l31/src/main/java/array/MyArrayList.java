@@ -9,9 +9,8 @@ import java.util.Iterator;
  */
 public class MyArrayList<T> implements Collection<T> {
 
-    private int capacity = 0;
     private T[] array;
-    private int index = 0;
+    private int length = 0;
 
     @SuppressWarnings("unchecked")
     public MyArrayList(int capacity){
@@ -19,12 +18,16 @@ public class MyArrayList<T> implements Collection<T> {
     }
 
     public MyArrayList(T[] array_2){
-        array = array_2;
+        array = (T[]) new Object[2 * array_2.length];
+        for (int i = 0; i<array_2.length; i++) {
+            array[i] = array_2[i];
+        }
+        length = array_2.length;
     }
 
     @Override
     public int size() {
-        throw new UnsupportedOperationException();
+        return length;
     }
 
     @Override
@@ -55,18 +58,15 @@ public class MyArrayList<T> implements Collection<T> {
     @Override
     public boolean add(T t) {
         int i;
-        if (2*array.length > capacity){
-            capacity = 2 * array.length + 1;
-            T[] array_2 = (T[]) new Object[capacity];
+        if (length + 1 > array.length){
+            T[] array_2 = (T[]) new Object[array.length * 2];
             for (i=0; i<array.length; i++){
                 array_2[i] = array[i];
             }
             array = array_2;
         }
-        else {
-            i = array.length;
-        }
-        array[i] = t;
+        array[length] = t;
+        length += 1;
         return true;
     }
 
@@ -98,5 +98,9 @@ public class MyArrayList<T> implements Collection<T> {
     @Override
     public void clear() {
         throw new UnsupportedOperationException();
+    }
+
+    public T get(int ind) {
+        return array[ind];
     }
 }

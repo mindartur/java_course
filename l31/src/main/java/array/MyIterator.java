@@ -7,7 +7,8 @@ import java.util.Iterator;
  */
 public class MyIterator<T> implements Iterator<T> {
     public boolean hasNext() {
-        return myarray.length-1 >= index;
+
+        return myarray.length-1 >= index && myarray[index] != null;
     }
 
     public T next() {
@@ -20,7 +21,7 @@ public class MyIterator<T> implements Iterator<T> {
     }
 
     public void remove() {
-
+        throw new UnsupportedOperationException();
     }
     private T[] myarray;
     private int index = 0;
