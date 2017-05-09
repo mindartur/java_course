@@ -29,9 +29,11 @@ public class ATMNodeTest {
         Assert.assertEquals(0, node1.handle(10));
         Assert.assertEquals(0, node1.handle(10));
         Assert.assertEquals(0, node1.handle(10));
+        Assert.assertEquals(4, node1.getRest());
         Assert.assertEquals(-1, node1.handle(1));
         node1.setBanknoteAmount(3);
         Assert.assertEquals(0, node1.handle(30));
+        Assert.assertEquals(4, node1.getRest());
         Assert.assertEquals(-1, node1.handle(20));
     }
 
@@ -39,6 +41,7 @@ public class ATMNodeTest {
     public void withdraw5(){
         Assert.assertEquals(0, node1.handle(5));
         Assert.assertEquals(0, node1.handle(5));
+        Assert.assertEquals(24, node1.getRest());
         Assert.assertEquals(-1, node1.handle(5));
     }
 
@@ -46,17 +49,24 @@ public class ATMNodeTest {
     public void withdraw2(){
         Assert.assertEquals(0, node1.handle(2));
         Assert.assertEquals(0, node1.handle(2));
+        Assert.assertEquals(30, node1.getRest());
         Assert.assertEquals(-1, node1.handle(2));
     }
 
     @Test
     public void withdrawDifferent(){
-        node3.setBanknoteAmount(2);
         Assert.assertEquals(0, node1.handle(27));
+        Assert.assertEquals(7, node1.getRest());
         Assert.assertEquals(0, node1.getBanknoteAmount());
         Assert.assertEquals(1, node2.getBanknoteAmount());
         Assert.assertEquals(1, node3.getBanknoteAmount());
 
     }
 
+    @Test
+    public void testClone(){
+        Node node4 = node3.clone();
+        Assert.assertEquals(node3, node4);
+        Assert.assertFalse(node4 == node3);
+    }
 }

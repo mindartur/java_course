@@ -14,8 +14,8 @@ public class MyIterator implements Iterator {
         if (!x.hasNext()) {
             return null;
         }
-
-        return x.getNext();
+        x = x.getNext();
+        return x;
     }
 
     public void remove() {

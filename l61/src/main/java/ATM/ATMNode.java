@@ -6,7 +6,7 @@ import java.util.Iterator;
 /**
  * Created by artur on 8/05/17.
  */
-public class ATMNode implements Collection {
+public class ATMNode implements Node, Cloneable {
     private ATMNode next = null;
     private int banknoteAmount;
     private int nominal;
@@ -14,6 +14,10 @@ public class ATMNode implements Collection {
     public ATMNode(int nominal, int banknoteAmount){
         this.nominal = nominal;
         this.banknoteAmount = banknoteAmount;
+    }
+
+    public int getNominal(){
+        return nominal;
     }
 
     public void setBanknoteAmount(int amount) { this.banknoteAmount = amount; }
@@ -30,9 +34,28 @@ public class ATMNode implements Collection {
         return amount;
     }
 
+    @Override
+    public Node clone() {
+        try {
+            return (Node) super.clone();
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
+    }
+
     public void setNext(ATMNode next) { this.next = next; }
 
-    public ATMNode getNext() { return this.next; }
+    public ATMNode getNext() { return next; }
+
+    public int getRest(){
+        int result = this.getNominal() * this.getBanknoteAmount();
+        Iterator<ATMNode> iterator = new MyIterator(this);
+        while(iterator.hasNext()){
+            ATMNode curr = iterator.next();
+            result += curr.getNominal() * curr.getBanknoteAmount();
+        }
+        return result;
+    }
 
     @Override
     public int size() {
@@ -136,5 +159,15 @@ public class ATMNode implements Collection {
         }
 
         return getNext().handle(amount);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ATMNode that = (ATMNode) o;
+
+        return nominal == that.nominal && banknoteAmount == that.banknoteAmount;
     }
 }

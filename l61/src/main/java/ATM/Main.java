@@ -12,9 +12,7 @@ public class Main {
         node2.setNext(node3);
 
         node1.handle(17);
-        for (Object i : node1){
-            System.out.println(i);
 
-        }
+        System.out.println("Rest of money in ATM's: " + node1.getRest());
     }
 }
