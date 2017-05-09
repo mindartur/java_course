@@ -69,4 +69,15 @@ public class ATMNodeTest {
         Assert.assertEquals(node3, node4);
         Assert.assertFalse(node4 == node3);
     }
+
+    @Test
+    public void testCloneDepartment(){
+        ATMDepartment ATM = new ATMDepartment(new ATMNode(10,3));
+        ATM.addATM(new ATMNode(5,3));
+        ATM.addATM(new ATMNode(2,3));
+
+        ATMDepartment clone = ATM.clone();
+        Assert.assertEquals(clone, ATM);
+        Assert.assertFalse(clone == ATM);
+    }
 }
