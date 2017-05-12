@@ -19,5 +19,13 @@ public class UsersDataset {
     public long getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return "UserDataSet{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
 

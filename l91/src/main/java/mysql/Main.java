@@ -1,5 +1,6 @@
 package mysql;
 
+import javax.jws.soap.SOAPBinding;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +16,7 @@ public class Main {
         SimpleExecutor exec = new SimpleExecutor(conn);
 
         try {
-            exec.execUpdate("create table users (id bigint auto_increment, user_name varchar(256), primary key (id))");
+            exec.execUpdate("create table users1 (id bigint auto_increment, user_name varchar(256), primary key (id))");
         } catch (Exception e) {
             System.out.println("Tables already exists");
         }
@@ -27,26 +28,27 @@ public class Main {
             System.out.println("Tables already exists");
         }
 
-        exec.execUpdate("insert into users (user_name) values ('tully')");
-        exec.execUpdate("insert into users (user_name) values ('artur')");
-        exec.execUpdate("insert into users (user_name) values ('vova')");
+        exec.execUpdate("insert into users1 (user_name) values ('tully')");
+        exec.execUpdate("insert into users1 (user_name) values ('artur')");
+        exec.execUpdate("insert into users1 (user_name) values ('vova')");
 
         exec.execUpdate("insert into courses (course_name, course_desc) values ('Java', 'Java course')");
         exec.execUpdate("insert into courses (course_name, course_desc) values ('SQL', 'SQL course')");
 
-        exec.execQuery("select * from users", new ResultHandler() {
+        exec.execQuery("select * from users1", new ResultHandler() {
 
             public void handle(ResultSet result) throws SQLException {
                 while (true) {
                     result.next();
-                    System.out.println("User: " + result.getInt(1) + " name: " + result.getString("user_name"));
+                    System.out.println(new UsersDataset(result.getInt(1),
+                            result.getString("user_name")));
                     if (result.isLast())
                         break;
                 }
             }
         });
 
-        exec.execUpdate("drop table users");
+        exec.execUpdate("drop table users1");
         exec.execUpdate("drop table courses");
 
         System.out.println("Done!");
