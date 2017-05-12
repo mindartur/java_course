@@ -59,10 +59,10 @@ public class MyJson {
     }
 
     public static void writeToFile(String path, String json) throws IOException {
-        byte[] ser = serialize(json);
+        //byte[] ser = serialize(json);
         try (FileOutputStream fos = new FileOutputStream(path)) {
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(ser);
+            oos.writeObject(json);
             oos.flush();
         } catch (IOException e) {
             e.printStackTrace();
@@ -78,20 +78,7 @@ public class MyJson {
             e.printStackTrace();
             out = null;
         }
-        return deserialize((byte[]) out);
-    }
-
-    private static byte[] serialize(Object obj) throws IOException {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        ObjectOutputStream os = new ObjectOutputStream(out);
-        os.writeObject(obj);
-        return out.toByteArray();
-    }
-
-    private static Object deserialize(byte[] data) throws IOException, ClassNotFoundException {
-        ByteArrayInputStream in = new ByteArrayInputStream(data);
-        ObjectInputStream is = new ObjectInputStream(in);
-        return is.readObject();
+        return out;
     }
 
 }
